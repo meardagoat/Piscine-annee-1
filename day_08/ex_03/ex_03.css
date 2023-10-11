@@ -1,0 +1,20 @@
+/* Add your custom CSS styles here */
+.element {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    background-color: #3498db;
+    display: inline-block;
+}
+img {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
+button {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
