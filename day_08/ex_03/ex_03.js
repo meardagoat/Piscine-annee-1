@@ -30,3 +30,4 @@ document.addEventListener("DOMContentLoaded", function () {
         interactive: true
     });
 });
+//I give up :( Akane sorry
