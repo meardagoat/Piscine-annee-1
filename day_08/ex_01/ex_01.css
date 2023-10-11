@@ -1,0 +1,10 @@
+#latest-creations-carousel .splide__slide {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+#latest-creations-carousel .splide__slide.is-active {
+    opacity: 1;
+    transform: scale(1.1);
+    z-index: 2;
+}

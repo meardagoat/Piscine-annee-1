@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="splide.min.css">
+    <link rel="stylesheet" href="ex_01.css">
+    <script src="splide.min.js"></script>
+</head>
+<body>
+<div class="splide" id="latest-creations-carousel">
+    <div class="splide__track">
+        <ul class="splide__list">
+            <li class="splide__slide"><img src="images_de_poney/img_1.png" height="600" width="900" alt=""/>
+            <li class="splide__slide"><img src="images_de_poney/img_2.png" height="623" width="609" alt=""/>
+            <li class="splide__slide"><img src="images_de_poney/img_3.png" height="400" width="400" alt=""/>
+        </ul>
+    </div>
+</div>
+<section>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+</section>
+<script>
+    document.addEventListener( 'DOMContentLoaded', function () {
+        new Splide( '#latest-creations-carousel', {
+            type  : 'loop',
+            perPage: 3,
+            autoplay: true,
+            interval: 5000,
+            focus  : 'center',
+            gap: '1em',
+        } ).mount();
+    } );
+</script>
+</body>
+</html>
