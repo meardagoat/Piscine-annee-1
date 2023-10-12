@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+div[id^="particles-"] {
+    width: 50vw;
+    height: 50vh;
+    position: relative;
+    overflow: hidden;
+}
