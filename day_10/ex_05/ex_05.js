@@ -12,3 +12,17 @@ function getID() {
 
 // Do not modify what's above, write your code below
 // Don't forget to re-assign seed !
+function assignID(machineName, newSeed) {
+    seed = newSeed; // re-assign seed
+
+    // Call getID() which returns a promise
+    return getID()
+        .then(id => `${machineName} : ${id}`)
+        .catch(err => console.log(err));
+}
+
+// Usage:
+assignID("Oxygen filter", 1)
+    .then(value => console.log(value))
+    .catch(err => console.log(err));
+
