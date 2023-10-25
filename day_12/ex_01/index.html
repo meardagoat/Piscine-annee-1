@@ -4,34 +4,34 @@
     <meta charset="UTF-8">
     <title>Form</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="script" href="ex_01bis.js">
-    <link rel="script" href="ex_01ter.js">
+    <script src="ex_01bis.js"></script>
+    <script src="ex_01ter.js"></script>
 </head>
 <body>
-<form class="form">
-  <div class="title">Welcome</div>
-  <div class="subtitle">Let's create your account!</div>
-  <div class="input-container ic2">
-    <input id="firstname" class="input" type="text" placeholder=" " />
-    <div class="cut"></div>
-    <label for="firstname" class="placeholder">First name</label>
-  </div>
+<form class="form" onsubmit="handleSubmit(event)">
+    <div class="title">Welcome</div>
+    <div class="subtitle">Let's create your account!</div>
+    <div class="input-container ic2">
+        <input id="firstname" class="input" type="text" placeholder=" " />
+        <div class="cut"></div>
+        <label for="firstname" class="placeholder">First name</label>
+    </div>
     <div class="input-container ic2">
         <input id="lastname" class="input" type="text" placeholder=" " />
         <div class="cut"></div>
         <label for="lastname" class="placeholder">Last name</label>
     </div>
     <div class="input-container ic2">
-        <input id="Email" class="input" type="text" placeholder=" " />
+        <input id="email" class="input" type="email" placeholder=" " />
         <div class="cut"></div>
-        <label for="Email" class="placeholder">Email</label>
+        <label for="email" class="placeholder">Email</label>
     </div>
     <div class="input-container ic2">
         <input id="password" class="input" type="password" placeholder=" " />
         <div class="cut"></div>
         <label for="password" class="placeholder">Password</label>
     </div>
-  <button type="reset" class="submit" onsubmit="handleSubmit()">submit</button>
+    <button type="submit" class="submit">submit</button>
     <p id="error" class="error"></p>
 </form>
 </body>

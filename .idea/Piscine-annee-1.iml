@@ -14,6 +14,5 @@
     <orderEntry type="library" name="leaflet" level="application" />
     <orderEntry type="library" name="parallax" level="application" />
     <orderEntry type="library" name="particles" level="application" />
-    <orderEntry type="library" name="three" level="application" />
   </component>
 </module>

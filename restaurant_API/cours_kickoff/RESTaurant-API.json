@@ -1,0 +1,983 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RESTaurant API",
+    "version": "1.0",
+    "description": "We provides digital menu and online ordering solutions, intuitive\nand ergonomic, to fit the customers demands: we optimize all of their services to provide a gain of time.",
+    "summary": "This API provides an easy access to all the information you need to manage and safely digitalize a restaurant menu.",
+    "contact": {
+      "name": "RESTaurant API Inc"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/items": {
+      "get": {
+        "summary": "Get items",
+        "tags": [
+          "items",
+          "queryable"
+        ],
+        "operationId": "get-items",
+        "description": "Get a list of all items.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "results": []
+                    }
+                  },
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Item"
+                      }
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ]
+                },
+                "examples": {}
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "category",
+            "description": "Used to search for items in a specific category"
+          }
+        ]
+      },
+      "post": {
+        "summary": "Add a new item",
+        "operationId": "post-item",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Item"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        },
+        "description": "Add a new item",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Item"
+              }
+            }
+          },
+          "description": ""
+        },
+        "tags": [
+          "items"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      }
+    },
+    "/items/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get an item",
+        "tags": [
+          "items"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Item"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-item",
+        "description": "Get the item with the specified id",
+        "parameters": []
+      },
+      "put": {
+        "summary": "Update an item",
+        "operationId": "put-item",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Item"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "description": "Update the item with the specified id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Item"
+              }
+            }
+          }
+        },
+        "tags": [
+          "items"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete an item",
+        "operationId": "delete-item",
+        "description": "Delete the item with the specified id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Item 'Tomato soup' deleted with success"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "items"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Get categories",
+        "tags": [
+          "categories"
+        ],
+        "operationId": "get-categories",
+        "description": "Get a list of all categories.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "results": []
+                    }
+                  },
+                  "properties": {
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    }
+                  },
+                  "required": [
+                    "categories"
+                  ]
+                },
+                "examples": {}
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new category",
+        "operationId": "post-category",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/EDI-X12": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/EDIFACT": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/atom+xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/font-woff": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/gzip": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/javascript": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        },
+        "description": "Add a new category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          },
+          "description": "A body is required to create a category with the wanted name"
+        },
+        "tags": [
+          "categories"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/categories/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get a category",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-category",
+        "description": "Get the category with the specified id",
+        "parameters": [],
+        "tags": [
+          "categories"
+        ]
+      },
+      "put": {
+        "summary": "Update a category",
+        "operationId": "put-category",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "description": "Update the category with the specified id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          },
+          "description": ""
+        },
+        "tags": [
+          "categories"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a category",
+        "operationId": "delete-category",
+        "description": "Delete the category with the specified id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Category 'mains' deleted with success"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "categories"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      }
+    },
+    "/formulas": {
+      "get": {
+        "summary": "Get formulas",
+        "tags": [
+          "formulas",
+          "queryable"
+        ],
+        "operationId": "get-formulas",
+        "description": "Get a list of all formulas.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "results": []
+                    }
+                  },
+                  "properties": {
+                    "formulas": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Formula"
+                      }
+                    }
+                  },
+                  "required": [
+                    "formulas"
+                  ]
+                },
+                "examples": {}
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "description": "Used to search for formulas containing a specific given name",
+            "name": "name"
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "description": "Used to search only for formulas strictly above the given price",
+            "name": "price_min"
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "description": "Used to search only for formulas strictly below the given price",
+            "name": "price_max"
+          }
+        ]
+      },
+      "post": {
+        "summary": "Add new formula",
+        "operationId": "post-formula",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Formula"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/EDI-X12": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/EDIFACT": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/atom+xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/font-woff": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/gzip": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/javascript": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/octet-stream": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        },
+        "description": "Add a new formula",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Formula"
+              }
+            }
+          },
+          "description": "A body is required to create a formula"
+        },
+        "tags": [
+          "formulas"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/formulas/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get a formula",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Formula"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-formula",
+        "description": "Get the formula with the specified id",
+        "parameters": [],
+        "tags": [
+          "formulas"
+        ]
+      },
+      "put": {
+        "summary": "Update a formula",
+        "operationId": "put-formula",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Formula"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "description": "Update the formula with the specified id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Formula"
+              }
+            }
+          },
+          "description": ""
+        },
+        "tags": [
+          "formulas"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a formula",
+        "operationId": "delete-formula",
+        "description": "Delete the formula with the specified id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Formula 'classic' deleted with success"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "formulas"
+        ],
+        "security": [
+          {
+            "admin ": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "Item": {
+        "title": "Item",
+        "type": "object",
+        "description": "",
+        "examples": [
+          {
+            "id ": 0,
+            "name": "Tartiflette",
+            "description": "Oven-baked dish of charlotte potatoes, bacon lardons, double cream, shallots, garlic and 1 whole Reblochon cheese",
+            "price": 12.5,
+            "category_id": 3
+          }
+        ],
+        "properties": {
+          "id ": {
+            "type": "integer",
+            "description": "Unique identifier for the given user.",
+            "format": "int64",
+            "minimum": 0,
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "currency"
+          },
+          "category_id": {
+            "type": "integer",
+            "example": 0
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Category": {
+        "title": "Category",
+        "type": "object",
+        "description": "Used to classify and organize different items.",
+        "examples": [
+          {
+            "id": 3,
+            "name": "mains"
+          },
+          {
+            "id": 2,
+            "name": "cocktails"
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Formula": {
+        "title": "Formula",
+        "type": "object",
+        "description": "Grouping of categories. Used by restaurateurs to offer advantageous packages.",
+        "examples": [
+          {
+            "id": 1,
+            "name": "classic",
+            "price": 15,
+            "categories": [
+              {
+                "id": 1,
+                "name": "starters"
+              },
+              {
+                "id": 3,
+                "name": "mains"
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "currency"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "price"
+        ]
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "The specified resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Invalid json body received",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "admin ": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "client": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "items",
+      "description": ""
+    },
+    {
+      "name": "categories",
+      "description": ""
+    },
+    {
+      "name": "formulas",
+      "description": ""
+    },
+    {
+      "name": "queryable",
+      "description": ""
+    }
+  ],
+  "security": [
+    {
+      "client": []
+    }
+  ]
+}
